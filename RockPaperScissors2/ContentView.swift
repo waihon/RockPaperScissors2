@@ -11,6 +11,8 @@ struct ContentView: View {
     static let moves = ["Rock", "Paper", "Scissors"]
     static let movesEmoji = ["🪨", "📄", "✂"]
     static let maxQuestions = 10
+    static let winningMoves = [1, 2, 0] // Paper wins rock
+    static let losingMoves = [2, 0, 1]  // Scissors loses to rock
 
     @State var currentChoice = Int.random(in: 0...2)
     @State var playerShouldWin = Bool.random()
@@ -22,7 +24,11 @@ struct ContentView: View {
     @State private var answerCount = 0
 
     var correctAnswer: Int {
-        return 0
+        if playerShouldWin {
+            return Self.winningMoves[currentChoice]
+        } else {
+            return Self.losingMoves[currentChoice]
+        }
     }
 
     var body: some View {
@@ -91,7 +97,7 @@ struct ContentView: View {
         .alert(scoreTitle, isPresented: $showingFinalScore) {
             Button("Restart the Game", action: reset)
         } message: {
-            Text("Your final score is \(score) out of \(Self.maxQuestions)")
+            Text("Your final score is \(score) out of \(Self.maxQuestions).")
         }
     }
 
