@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    static let moves = ["Rock", "Paper", "Scissors"]
+    @State var currentChoice = Self.moves[Int.random(in: 0...2)]
+    @State var playerShouldWin = Bool.random()
+
     var body: some View {
         Text("Hello, world!")
             .padding()
